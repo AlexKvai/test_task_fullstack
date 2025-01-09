@@ -74,3 +74,10 @@ npm run dev
 ```
 
 Клиент будет доступен по адресу: http://localhost:5173/.
+
+### 4. Тесты
+
+```bash
+cd server
+npm test
+```
