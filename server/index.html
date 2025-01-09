@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>URL Shortener</title>
+	</head>
+	<body>
+		<h1>Сокращение URL</h1>
+		<form id="shortenForm">
+			<label for="originalUrl">Введите оригинальный URL:</label>
+			<input type="text" id="originalUrl" name="originalUrl" required />
+			<button type="submit">Создать короткий URL</button>
+		</form>
+
+		<div id="result"></div>
+
+		<script>
+			document
+				.getElementById('shortenForm')
+				.addEventListener('submit', async function (e) {
+					e.preventDefault()
+
+					const originalUrl = document.getElementById('originalUrl').value
+
+					try {
+						const response = await fetch('http://localhost:3000/shorten', {
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/json',
+							},
+							body: JSON.stringify({ originalUrl }),
+						})
+						const result = await response.json()
+						document.getElementById(
+							'result'
+						).innerText = `Короткий URL: ${result.shortUrl}`
+					} catch (error) {
+						console.error('Error:', error)
+					}
+				})
+		</script>
+	</body>
+</html>
